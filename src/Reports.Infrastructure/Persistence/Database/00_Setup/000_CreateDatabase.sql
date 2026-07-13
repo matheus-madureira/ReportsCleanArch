@@ -1,0 +1,8 @@
+IF DB_ID(N'ReportsDb') IS NULL
+    BEGIN
+        CREATE DATABASE ReportsDb;
+    END
+
+GO
+ALTER DATABASE ReportsDb
+    SET RECOVERY SIMPLE;
