@@ -1,6 +1,18 @@
 @Reports.Api_HostAddress = http://localhost:5001
 
-GET {{Reports.Api_HostAddress}}/weatherforecast/
-Accept: application/json
+# Id de fatura semeado por 03_Seeds/201_SeedDevData.sql
+@invoiceId = 22222222-2222-2222-2222-222222222222
+
+### PDF da fatura semeada => 200, application/pdf
+GET {{Reports.Api_HostAddress}}/invoices/{{invoiceId}}/pdf
+Accept: application/pdf
+
+### Fatura inexistente => 404 + ProblemDetails (code = "Invoice.NotFound")
+GET {{Reports.Api_HostAddress}}/invoices/00000000-0000-0000-0000-000000000000/pdf
+Accept: application/pdf
+
+### Id malformado => 404 pela restrição de rota :guid
+GET {{Reports.Api_HostAddress}}/invoices/nao-e-um-guid/pdf
+Accept: application/pdf
 
 ###
